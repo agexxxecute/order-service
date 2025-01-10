@@ -1,0 +1,9 @@
+services:
+  order-db:
+    image: postgres:latest
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: admin
+      POSTGRES_DB: order-service
+    ports:
+      - '5430:5432'
