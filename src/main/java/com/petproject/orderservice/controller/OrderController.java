@@ -77,6 +77,9 @@ public class OrderController {
     @Operation(description = "Позволяет получить заказы за определенный период")
     @ApiResponses(value = {
         @ApiResponse(responseCode = "200", description = "Заказы найдены успешно"),
+        @ApiResponse(responseCode = "400", description = "Ошибка в данных запроса", content = {
+            @Content(schema = @Schema(implementation = ErrorResponseDto.class))
+        }),
         @ApiResponse(responseCode = "404", description = "Не найдено ни одного заказа", content = {
             @Content(schema = @Schema(implementation = ErrorResponseDto.class))
         }),
@@ -85,7 +88,7 @@ public class OrderController {
         })})
     @GetMapping("/period")
     @ResponseStatus(HttpStatus.OK)
-    public List<OrderResponseDto> getOrderByDateBetween(OrderByDateBetweenRequestDto orderByDateBetweenRequestDto){
+    public List<OrderResponseDto> getOrderByDateBetween(@RequestBody @Valid OrderByDateBetweenRequestDto orderByDateBetweenRequestDto){
         return orderService.getOrderByDateBetween(orderByDateBetweenRequestDto);
     }
 }
