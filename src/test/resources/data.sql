@@ -22,9 +22,9 @@ CREATE TABLE books(
     id bigserial primary key,
     price numeric(38,2),
     title varchar(255),
-    authors_id bigserial,
+    author_id bigserial,
     orders_id bigserial,
-    foreign key (authors_id) references authors(id),
+    foreign key (author_id) references authors(id),
     foreign key (orders_id) references orders(id)
 );
 
@@ -34,6 +34,6 @@ INSERT INTO authors (first_name, last_name) VALUES ('Александр Серг
 INSERT INTO orders (order_number, order_date, customer_name, total_price) VALUES ('11111120210101', '2021-01-01', 'Покупатель-1', 100.0),
                                                                                  ('22222220220101', '2022-01-01', 'Покупатель-2', 50.0);
 
-INSERT INTO books (price, title, authors_id, orders_id) VALUES (75.0, 'Евгений Онегин', 1, 1),
+INSERT INTO books (price, title, author_id, orders_id) VALUES (75.0, 'Евгений Онегин', 1, 1),
                                                                (25.0, 'Герой нашего времени', 2, 1),
                                                                (50.0, 'Руслан и Людмила', 1, 2);
