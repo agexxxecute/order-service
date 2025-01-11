@@ -4,6 +4,7 @@ import com.petproject.orderservice.dto.request.OrderByDateBetweenRequestDto;
 import com.petproject.orderservice.dto.request.OrderCreateDto;
 import com.petproject.orderservice.dto.response.GeneratedNumberDto;
 import com.petproject.orderservice.dto.response.OrderResponseDto;
+import com.petproject.orderservice.exception.InternalServerErrorException;
 import com.petproject.orderservice.exception.NotFoundException;
 import com.petproject.orderservice.mapper.OrderMapper;
 import com.petproject.orderservice.model.Book;
@@ -37,8 +38,11 @@ public class OrderServiceImpl implements OrderService {
     public OrderResponseDto addOrder(OrderCreateDto orderCreateDto) {
         Order order = orderMapper.toEntity(orderCreateDto);
 
-        order.setOrderNumber(generateNumberRest());
-
+        try {
+            order.setOrderNumber(generateNumberRest());
+        } catch (Exception e) {
+            throw new InternalServerErrorException(ExceptionMessage.INTERNAL_SERVER_ERROR.getDescription());
+        }
         Optional<BigDecimal> totalPrice = order.getBooks().stream()
                 .map(Book::getPrice)
                 .reduce(BigDecimal::add);
@@ -52,7 +56,11 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public List<OrderResponseDto> getAllOrders() {
-        return orderMapper.toDto(orderRepository.findAll());
+        List<Order> foundOrders = orderRepository.findAll();
+        if (foundOrders.isEmpty()) {
+            throw new NotFoundException(ExceptionMessage.ORDER_NOT_FOUND.getDescription());
+        }
+        return orderMapper.toDto(foundOrders);
     }
 
     @Override
@@ -65,7 +73,11 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public List<OrderResponseDto> getOrderByDateBetween(OrderByDateBetweenRequestDto orderByDateBetweenRequestDto) {
-        return orderMapper.toDto(orderRepository.getOrderByDateBetween(orderByDateBetweenRequestDto.startDate(), orderByDateBetweenRequestDto.endDate()));
+        List<Order> foundOrders = orderRepository.getOrderByDateBetween(orderByDateBetweenRequestDto.startDate(), orderByDateBetweenRequestDto.endDate());
+        if (foundOrders.isEmpty()) {
+            throw new NotFoundException(ExceptionMessage.ORDER_NOT_FOUND.getDescription());
+        }
+        return orderMapper.toDto(foundOrders);
     }
 
     private String generateNumberRest(){
