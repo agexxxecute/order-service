@@ -22,6 +22,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+/**
+ * Контроллер для работы с заказами.
+ * Предоставляет конечные точки для создания и получения заказов
+ *
+ * @author Egor Nazarev
+ */
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/orders")

@@ -7,6 +7,11 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+/**
+ * Репозиторий для работы с заказами в базе данных.
+ *
+ * @author Egor Nazarev
+ */
 @Repository
 public interface OrderRepository extends JpaRepository<Order, Long> {
     @Query("""

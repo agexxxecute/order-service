@@ -10,6 +10,11 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/**
+ * Сущность, описывающая автора
+ *
+ * @author Egor Nazarev
+ */
 @Entity
 @Data
 @NoArgsConstructor

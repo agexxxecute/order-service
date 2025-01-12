@@ -4,6 +4,11 @@ import org.apache.kafka.clients.admin.NewTopic;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+/**
+ * Класс конфигурации Apache Kafka
+ *
+ * @author Egor Nazarev
+ */
 @Configuration
 public class KafkaConfig {
 

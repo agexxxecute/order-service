@@ -22,6 +22,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.RestTemplate;
 
+/**
+ * Реализация интерфейса OrderService. Содержит бизнес-логику для работы с заказами.
+ *
+ * @author Egor Nazarev
+ */
 @Service
 @RequiredArgsConstructor
 public class OrderServiceImpl implements OrderService {
@@ -33,6 +38,11 @@ public class OrderServiceImpl implements OrderService {
 
     private final String NUMBER_GENERATE_URL = "http://localhost:8000/numbers";
 
+    /**
+     * Реализация метода для создания заказа
+     * @param orderCreateDto входная информация о заказе
+     * @return информация о созданном заказе
+     */
     @Override
     @Transactional
     public OrderResponseDto addOrder(OrderCreateDto orderCreateDto) {
@@ -54,6 +64,10 @@ public class OrderServiceImpl implements OrderService {
         return orderMapper.toDto(savedOrder);
     }
 
+    /**
+     * Реализация метода для поиска всех заказов
+     * @return список заказов
+     */
     @Override
     public List<OrderResponseDto> getAllOrders() {
         List<Order> foundOrders = orderRepository.findAll();
@@ -63,6 +77,11 @@ public class OrderServiceImpl implements OrderService {
         return orderMapper.toDto(foundOrders);
     }
 
+    /**
+     * Реализация метода для поиска заказа по id
+     * @param id идентификатор заказа
+     * @return найденный заказ
+     */
     @Override
     public OrderResponseDto getOrderById(Long id) {
         Order foundOrder = orderRepository.findById(id).orElseThrow(
@@ -71,6 +90,11 @@ public class OrderServiceImpl implements OrderService {
         return orderMapper.toDto(foundOrder);
     }
 
+    /**
+     * Реализация метода для поиска заказов в заданном временном промежутке
+     * @param orderByDateBetweenRequestDto информация о временном промежутке
+     * @return список найденных заказов
+     */
     @Override
     public List<OrderResponseDto> getOrderByDateBetween(OrderByDateBetweenRequestDto orderByDateBetweenRequestDto) {
         List<Order> foundOrders = orderRepository.getOrderByDateBetween(orderByDateBetweenRequestDto.startDate(), orderByDateBetweenRequestDto.endDate());

@@ -12,13 +12,17 @@ import jakarta.persistence.Table;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Objects;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 
+/**
+ * Сущность, описывающая заказ
+ *
+ * @author Egor Nazarev
+ */
 @Entity
 @Data
 @NoArgsConstructor
