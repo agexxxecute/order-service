@@ -14,7 +14,6 @@ class AuthorMapperTest {
     private AuthorMapper authorMapper;
     private Author author;
     private AuthorCreateDto authorCreateDto;
-    private AuthorResponseDto authorResponseDto;
 
     @BeforeEach
     void setUp() {

@@ -6,6 +6,7 @@ import com.petproject.orderservice.model.Order;
 import com.petproject.orderservice.util.OrderUtil;
 import java.util.List;
 import org.assertj.core.api.SoftAssertions;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -29,9 +30,7 @@ class OrderMapperTest {
     void orderCreateDtoToOrder() {
         Order mappedOrder = orderMapper.toEntity(orderCreateDto);
 
-        SoftAssertions.assertSoftly(softAssertions -> {
-            softAssertions.assertThat(mappedOrder.getCustomerName()).isEqualTo(order.getCustomerName());
-        });
+        Assertions.assertEquals(mappedOrder.getCustomerName(), order.getCustomerName());
     }
 
     @Test
